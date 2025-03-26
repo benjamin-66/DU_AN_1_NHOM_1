@@ -33,4 +33,5 @@ class Category extends BaseModel
     {
         return $this->getAllByStatus();
     }
+
 }

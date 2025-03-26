@@ -64,23 +64,20 @@ class Header extends BaseView
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" href="/">Trang Chủ </a></li>
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
+								<a href="productsCategory" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Cửa Hàng </a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="productsCategory">Sản </a></li>
-									<li class="nav-item"><a class="nav-link" href="productsDeatail">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="productsCheckout">Product Checkout</a></li>
+									<li class="nav-item"><a class="nav-link" href="productsCategory">Sản Phẩm  </a></li>
+									
 									<li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
 							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="post" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
+							<li class="nav-item active"><a class="nav-link" href="post">Bài Viết </a></li>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="post">Blog</a></li>
+									<!-- <li class="nav-item"><a class="nav-link" href="post">Blog</a></li> -->
 									<!-- <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li> -->
 								</ul>
 							</li>
@@ -88,7 +85,7 @@ class Header extends BaseView
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="/login">Đăng Nhập </a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
