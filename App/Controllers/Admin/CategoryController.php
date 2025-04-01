@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers\Admin;
-
+use App\Validations\CategoryValidation;
 use App\Helpers\NotificationHelper;
 use App\Models\Category;
 use App\Views\Admin\Layouts\Footer;
@@ -19,24 +19,11 @@ class CategoryController
     public static function index()
     {
         // giả sử data là mảng dữ liệu lấy được từ database
-        $data = [
-            [
-                'id' => 1,
-                'name' => 'Category 1',
-                'status' => 1
-            ],
-            [
-                'id' => 2,
-                'name' => 'Category 2',
-                'status' => 1
-            ],
-            [
-                'id' => 3,
-                'name' => 'Category 3',
-                'status' => 0
-            ],
+     
+        $category = new Category();
+        $data = $category-> getAllCategory();
 
-        ];
+     
 
         Header::render();
         // hiển thị giao diện danh sách
@@ -58,8 +45,45 @@ class CategoryController
     // xử lý chức năng thêm
     public static function store()
     {
-        echo 'Thực hiện lưu vào database';
+        $is_valid =CategoryValidation::create();
+        
+        if (!$is_valid){
+            NotificationHelper::error('store','Thêm loại sản phẩm thất bại');
+            header('location: /admin/categories/create');
+            exit;
+        }
+        $name=$_POST['name'];
+        $status=$_POST['status'];
+
+       // kiểm tra tên loại có tồn tại chưa=> kh được trùng tên
+      $category=new Category();
+       $is_exist=$category->getOneCategoryByName($name);
+       if($is_exist){
+        NotificationHelper::error('store','Tên loại sản phẩm đã tồn tại');
+            header('location: /admin/categories/create');
+            exit;
+       }
+       //Thực hiện thêm
+       $data=[
+        'name'=>$name,
+        'status'=>$status
+       ];
+       $result=$category->createCategory($data);
+       if($result){
+        NotificationHelper::success('store','Thêm loại sản phẩm thành công');
+            header('location: /admin/categories');
+            
+       }
+       else{
+        NotificationHelper::error('store','Thêm loại sản phẩm thất bại');
+            header('location: /admin/categories/create');
+       }
     }
+
+
+    // hiển thị chi tiết
+       
+    
 
 
     // hiển thị chi tiết

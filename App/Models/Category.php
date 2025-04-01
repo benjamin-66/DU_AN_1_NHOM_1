@@ -6,7 +6,6 @@ class Category extends BaseModel
 {
     protected $table = 'categories';
     protected $id = 'id';
-
     public function getAllCategory()
     {
         return $this->getAll();
@@ -15,7 +14,6 @@ class Category extends BaseModel
     {
         return $this->getOne($id);
     }
-
     public function createCategory($data)
     {
         return $this->create($data);
@@ -24,7 +22,6 @@ class Category extends BaseModel
     {
         return $this->update($id, $data);
     }
-
     public function deleteCategory($id)
     {
         return $this->delete($id);
@@ -33,5 +30,36 @@ class Category extends BaseModel
     {
         return $this->getAllByStatus();
     }
+    public function getAllCategoryByName()
+    {
+        $result = [];
+        try {
+            $sql = "SELECT * FROM $this->table WHERE name";
+            $conn = $this->_conn->MySQLi();
+            $stmt = $conn->prepare($sql);
 
+            $stmt->bind_param('s', $name);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        } catch (\Throwable $th) {
+            error_log('Lỗi: ' . $th->getMessage());
+            return $result;
+        }
+    }
+    public function getOneCategoryByName($name)
+    {
+        $result = [];
+        try {
+            $sql = "SELECT * FROM $this->table WHERE name=?";
+            $conn = $this->_conn->MySQLi();
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bind_param('s', $name);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        } catch (\Throwable $th) {
+            error_log('Lỗi: ' . $th->getMessage());
+            return $result;
+        }
+    }
 }
