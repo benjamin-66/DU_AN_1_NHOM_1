@@ -150,7 +150,15 @@ class CategoryController
     // thực hiện xoá
     public static function delete(int $id)
     {
-        echo 'Thực hiện xoá';
+        $category = new Category();
+        $result = $category->deleteCategory($id);
+        if ($result) {
+            NotificationHelper::success('delete', 'Xóa thành công');
+        } else {
+            NotificationHelper::error('delete', 'Xóa thất bại');
+        }
+        header('location: /admin/categories');
+    
         
     }
 }
