@@ -96,27 +96,53 @@ class CategoryController
     // hiển thị giao diện form sửa
     public static function edit(int $id)
     {
-        // giả sử data là mảng dữ liệu lấy được từ database
-        $data = [
-            'id' => $id,
-            'name' => 'Category 1',
-            'status' => 1
-        ];
-        if ($data) {
-            Header::render();
-            // hiển thị form sửa
-            Edit::render($data);
-            Footer::render();
-        } else {
+        $category = new Category();
+        $data = $category->getOneCategory($id);
+        if (!$data) {
+            NotificationHelper::error('edit', 'Không thể xem');
             header('location: /admin/categories');
+            exit;
         }
+        Header::render();
+        Notification::render();
+        NotificationHelper::unset();
+        Edit::render($data);
+        Footer::render();
     }
 
 
     // xử lý chức năng sửa (cập nhật)
     public static function update(int $id)
     {
-        echo 'Thực hiện cập nhật vào database';
+        $is_valid = CategoryValidation::edit();
+        if (!$is_valid) {
+            NotificationHelper::error('update', 'Cập nhật thất bại');
+            header("location: /admin/categories/$id");
+            exit;
+        }
+        $name = $_POST['name'];
+        $status = $_POST['status'];
+        $category = new Category();
+        $is_exist = $category->getOneCategoryByName($name);
+        if ($is_exist) {
+            if ($is_exist['id'] != $id) {
+                NotificationHelper::error('update', 'Tên loại sản phẩm đã tồn tại');
+                header("location: /admin/categories/$id");
+                exit;
+            }
+        }
+        $data = [
+            'name' => $name,
+            'status' => $status
+        ];
+        $result = $category->updateCategory($id, $data);
+        if ($result) {
+            NotificationHelper::success('update', 'cập nhật thành công');
+            header('location: /admin/categories');
+        } else {
+            NotificationHelper::error('update', 'Cập nhật thất bại');
+            header("location: /admin/categories/$id");
+        }
 
     }
 
