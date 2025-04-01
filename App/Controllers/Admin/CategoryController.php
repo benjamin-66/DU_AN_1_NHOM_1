@@ -36,7 +36,8 @@ class CategoryController
     public static function create()
     {
         Header::render();
-        // hiển thị form thêm
+          Notification::render();
+        NotificationHelper::unset();
         Create::render();
         Footer::render();
     }
