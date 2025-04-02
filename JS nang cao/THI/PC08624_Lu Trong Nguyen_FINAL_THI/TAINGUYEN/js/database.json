@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Orange juice",
+            "subtitle": "Risks of Orange Juice",
+            "content": "One cup of orange juice contains over 100 calories, which can quickly add up if you're sipping orange juice throughout the day. In addition, unlike whole oranges, orange juice has little to no fiber. This means it's less likely to keep you feeling full for an extended period"
+        },
+        {
+            "id": 2,
+            "title": "Apple Juice",
+            "subtitle": "Raw apple juice benefits",
+            "content": "When it comes to choosing apples, there are plenty of options to choose from. Which you go for will depend on the taste, acidity, sweetness, color, etc., that you  prefer (and what is available to you)."
+        },
+        {
+            "id": 3,
+            "title": "Banana juice",
+            "subtitle": "Recipe Ingredients",
+            "content": "It's best to use fresh bananas in this Banana Juice recipe, unless you are looking for more of a smoothie consistency that you get from frozen bananas."
+        },
+        {
+            "id": 4,
+            "title": "Pear juice",
+            "subtitle": "Product Information",
+            "content": "Freshly harvested in season & full of natural flavours. Our 100% Australian organic juices are good for your health and the environment!"
+        }
+    ]
+}

@@ -57,6 +57,12 @@ Route::put('/admin/categories/{id}', 'App\Controllers\Admin\CategoryController@u
 Route::delete('/admin/categories/{id}', 'App\Controllers\Admin\CategoryController@delete');
 
 
-
+// *** Invoice ***
+Route::get('/admin/invoices', 'App\Controllers\Admin\InvoiceController@index');
+Route::get('/admin/invoices/create', 'App\Controllers\Admin\InvoiceController@create');
+Route::post('/admin/invoices', 'App\Controllers\Admin\InvoiceController@store');
+Route::get('/admin/invoices/{id}/edit', 'App\Controllers\Admin\InvoiceController@edit');
+Route::put('/admin/invoices/{id}', 'App\Controllers\Admin\InvoiceController@update');
+Route::delete('/admin/invoices/{id}', 'App\Controllers\Admin\InvoiceController@delete');
 
 Route::dispatch($_SERVER['REQUEST_URI']);
