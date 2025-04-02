@@ -65,7 +65,7 @@ class Create extends BaseView
                                 <div class="border-top">
                                     <div class="card-body">
                                         <button type="reset" class="btn btn-danger text-white" name="">Làm lại</button>
-                                        <button type="submit" class="btn btn-primary" name="">Thêm</button>
+                                        <button type="submit" class="btn btn-primary" name="">Thêmm</button>
                                     </div>
                                 </div>
                             </form>
