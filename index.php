@@ -56,6 +56,8 @@ Route::put('/admin/categories/{id}', 'App\Controllers\Admin\CategoryController@u
 // DELETE /categories/{id} (delete loại sản phẩm với id cụ thể)
 Route::delete('/admin/categories/{id}', 'App\Controllers\Admin\CategoryController@delete');
 
+// hiển thị danh sách hóa đơn 
+Route::get('/admin/invoices', 'App\Controllers\Admin\InvoiceController@index');
 
 // *** Invoice ***
 Route::get('/admin/invoices', 'App\Controllers\Admin\InvoiceController@index');
