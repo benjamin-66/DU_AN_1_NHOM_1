@@ -129,4 +129,28 @@ abstract class BaseModel implements CrudInterface
         $result = $this->_conn->MySQLi()->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+public function getOneByname($name)
+{  $result = [];
+
+    try {
+        //$sql = "SELECT * FROM $this->table";
+        $sql = "SELECT * FROM $this->table WHERE name=?";
+        $conn = $this->_conn->MySQLi();
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+         
+     
+        return $stmt->get_result()->fetch_assoc();
+    } catch (\Throwable $th) {
+        error_log('Lỗi: ' . $th->getMessage());
+        return $result;
+    }
+
+
+
+
+}
+
 }

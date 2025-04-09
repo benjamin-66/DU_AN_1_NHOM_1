@@ -66,5 +66,15 @@ Route::post('/admin/invoices', 'App\Controllers\Admin\InvoiceController@store');
 Route::get('/admin/invoices/{id}/edit', 'App\Controllers\Admin\InvoiceController@edit');
 Route::put('/admin/invoices/{id}', 'App\Controllers\Admin\InvoiceController@update');
 Route::delete('/admin/invoices/{id}', 'App\Controllers\Admin\InvoiceController@delete');
+/// product
+Route::get('/admin/products', 'App\Controllers\Admin\ProductController@index');
+Route::get('/admin/products/create', 'App\Controllers\Admin\ProductController@create');
+Route::post('/admin/products', 'App\Controllers\Admin\ProductController@store');
+Route::get('/admin/products/{id}', 'App\Controllers\Admin\ProductController@edit');
+Route::put('/admin/products/{id}', 'App\Controllers\Admin\ProductController@update');
+Route::delete('/admin/products/{id}', 'App\Controllers\Admin\ProductController@delete');
+
+
+
 
 Route::dispatch($_SERVER['REQUEST_URI']);
