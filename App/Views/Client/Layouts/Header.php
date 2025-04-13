@@ -61,7 +61,7 @@ class Header extends BaseView
                                     Cửa Hàng
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="/productsCategory">Sản Phẩm</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/products">Sản Phẩm</a></li>
                                     <li class="nav-item"><a class="nav-link" href="/cart">Giỏ Hàng</a></li>
                                 </ul>
                             </li>

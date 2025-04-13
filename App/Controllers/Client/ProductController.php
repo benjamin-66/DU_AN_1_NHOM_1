@@ -54,72 +54,39 @@ class ProductController
         Footer::render();
     }
 
-    public static function getProductByCategory($id = null): void
-    {
-        if (!$id) {
-            die("Danh mục không hợp lệ!");
-        }
-
-        $product = new Product();
-        $category = new Category();
-
-        $data = [
-            'products' => $product->getAllProductByCategoryAndStatus($id) ?? [],
-            'categories' => $category->getAllCategoryByStatus() ?? []
-        ];
-
-        Header::render();
-        ProductCategory::render($data);
-        Footer::render();
-    }
-
-    public static function getFilterProduct(): void
-    {
-        $product = new Product();
-        $category = new Category();
-
-        $data = [
-            'products' => $product->getFilterProduct() ?? [],
-            'categories' => $category->getAllCategory() ?? []
-        ];
-
-        if (empty($data['products'])) {
-            $data['message'] = "Không tìm thấy sản phẩm nào!";
-        }
-
-        Header::render();
-        ProductCategory::render($data);
-        Footer::render();
-    }
-
-    public static function getSearchProducts(): void
-    {
-        $product = new Product();
-        $category = new Category();
-
-        $data = [
-            'products' => $product->getSearchProduct() ?? [],
-            'categories' => $category->getAllCategory() ?? []
-        ];
-
-        if (empty($data['products'])) {
-            $data['message'] = "Không tìm thấy sản phẩm nào!";
-        }
-
-        Header::render();
-        ProductCategory::render($data);
-        Footer::render();
-    }
-    public static function category()
+    public static function getProductByCategory($id )
 {
-    $category = new Category();
-    $data['categories'] = $category->getAllCategoryByStatus();
-
     $product = new Product();
-    $data['products'] = $product->getAllProductByStatus();
+    $products = $product->getAllProductByCategoryAndStatus($id);
+    $category = new Category();
 
+    $categories = $category->getAllCategoryByStatus() ;
+
+    $data = [
+        'products' => $products,
+        'categories' => $categories          //'productWithDetail' => $productwithdetai
+
+    ];
+   // kiểm tra id truyền vào
+//    echo'<pre>';
+// var_dump($data);
     Header::render();
     ProductCategory::render($data);
     Footer::render();
 }
-}
+
+
+
+//     public static function category()
+// {
+//     $category = new Category();
+//     $data['categories'] = $category->getAllCategoryByStatus();
+
+//     $product = new Product();
+//     $data['products'] = $product->getAllProductByStatus();
+
+//     Header::render();
+//     ProductCategory::render($data);
+//     Footer::render();
+// }
+ }
