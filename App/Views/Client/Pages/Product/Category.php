@@ -17,7 +17,35 @@ class Category extends BaseView
 
 ?>
 
+<style>
+            p.card-text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
 
+            .card-price del {
+                color: #999;
+            }
+
+            .card-price strong {
+                color: red;
+            }
+
+            .new span {
+                background: red;
+                color: white;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 12px;
+            }
+
+            .box:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: 0.3s;
+            }
+        </style>
 
 
 	<!-- Start Banner Area -->
