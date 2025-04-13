@@ -17,12 +17,19 @@ class ProductController
 {
     public static function index()
     {
-        $product = new Product();
+      
         $category = new Category();
+        $categories = $category->getAllCategoryByStatus();
+
+        $product = new Product();
+        $products = $product->getAllProductByStatus();
+      
+        //$productwithdetail = $product->getAllProductsWithDetails();
 
         $data = [
-            'products' => $product->getAllProductByStatus() ?? [],
-            'categories' => $category->getAllCategoryByStatus() ?? [],
+            'products' => $products,
+            'categories' => $categories,             //'productWithDetail' => $productwithdetai
+
         ];
 
         Header::render();

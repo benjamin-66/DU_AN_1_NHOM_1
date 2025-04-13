@@ -28,7 +28,14 @@ class Product extends BaseModel
     }
     public function getAllProductByStatus()
     {
-        return $this->getAllByStatus();
+        $sql = "SELECT * FROM $this->table WHERE status=" . self::STATUS_ENABLE;
+        $sql = "SELECT products.*
+                FROM products
+                 INNER JOIN categories ON products.category_id = categories.id
+                 WHERE products.status =".self::STATUS_ENABLE."  AND categories.status = ".self::STATUS_ENABLE;
+
+        $result = $this->_conn->MySQLi()->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
  
     public function getOneProductByName($name)
@@ -51,5 +58,23 @@ class Product extends BaseModel
             return $result;
         }
     }
+    public function getOneProductBycategoryAndstatus(int $id)
+    {
+        $result = [];
+        try {
+            $sql = "SELECT * FROM $this->table WHERE $this->id=?";
+            $conn = $this->_conn->MySQLi();
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        } catch (\Throwable $th) {
+            error_log('Lỗi khi hiển thị chi tiết dữ liệu: ' . $th->getMessage());
+            return $result;
+        }
+    }
+
+
 
 }
