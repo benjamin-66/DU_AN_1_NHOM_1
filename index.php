@@ -20,7 +20,7 @@ require_once 'config.php';
 // *** Client
 Route::get('/', 'App\Controllers\Client\HomeController@index');
 Route::get('/products', 'App\Controllers\Client\ProductController@index');
-Route::get('/productsDeatail', 'App\Controllers\Client\ProductController@detail');
+Route::get('/products/{id}', 'App\Controllers\Client\ProductController@detail');
 Route::get('/products/categories/{id}', 'App\Controllers\Client\ProductController@getProductByCategory');
 Route::get('/productsCategory', 'App\Controllers\Client\ProductController@category');
 Route::get('/productsCheckout', 'App\Controllers\Client\ProductController@checkout');

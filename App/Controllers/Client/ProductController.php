@@ -40,16 +40,13 @@ class ProductController
     public static function detail($id): void
     {
         $product = new Product();
-        $data['product'] = $product->getOneProductByStatus($id);
-        $data['is_login'] = AuthHelper::checkLogin();
+        $product_detail = $product->getOneProductBystatus($id);
+        $data= [
+            'product'=>$product_detail];
 
-        if (!$data['product']) {
-            die("Sản phẩm không tồn tại!");
-        }
 
         Header::render();
-        Notification::render();
-        NotificationHelper::unset();
+      
         Detail::render($data);
         Footer::render();
     }
