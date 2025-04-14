@@ -75,9 +75,9 @@ class Header extends BaseView
                                     Trang
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="/login">Đăng Nhập</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/tracking">Theo Dõi</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/elements">Các Thành Phần</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/register">Đăng Ký </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/login">Đăng Nhập </a></li>
+                               
                                 </ul>
                             </li>
 

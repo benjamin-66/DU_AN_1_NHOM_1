@@ -33,7 +33,9 @@ Route::get('/cart', 'App\Controllers\Client\CartController@index');
 Route::get('/post', 'App\Controllers\Client\PostController@index');
 
 // login cient
-Route::get('/login', 'App\Controllers\Client\AuthController@index');
+Route::get('/', 'App\Controllers\Client\HomeController@index');
+Route::get('/register', 'App\Controllers\Client\AuthController@register');
+Route::post('/register', 'App\Controllers\Client\AuthController@registerAction');
 // *** Admin
 
 Route::get('/admin', 'App\Controllers\Admin\HomeController@index');
@@ -76,6 +78,22 @@ Route::put('/admin/products/{id}', 'App\Controllers\Admin\ProductController@upda
 Route::delete('/admin/products/{id}', 'App\Controllers\Admin\ProductController@delete');
 
 
+
+
+
+//user
+Route::get('/admin/users', 'App\Controllers\Admin\UserController@index');
+Route::get('/admin/users/create', 'App\Controllers\Admin\UserController@create');
+Route::post('/admin/users', 'App\Controllers\Admin\UserController@store');
+Route::get('/admin/users/{id}', 'App\Controllers\Admin\UserController@edit');
+Route::put('/admin/users/{id}', 'App\Controllers\Admin\UserController@update');
+
+// comment
+Route::get('/admin/comments', 'App\Controllers\Admin\CommentController@index');
+// Route::get('/admin/comments/create', 'App\Controllers\Admin\CommentController@create');
+Route::post('/admin/comments', 'App\Controllers\Admin\CommentController@store');    
+Route::get('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@edit');
+Route::put('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@update');
 
 
 Route::dispatch($_SERVER['REQUEST_URI']);

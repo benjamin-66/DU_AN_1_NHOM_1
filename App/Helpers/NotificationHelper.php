@@ -24,21 +24,21 @@ class NotificationHelper
     }
 
     // Phương thức hiển thị thông báo
-    public static function display()
-    {
-        // Hiển thị thông báo thành công
-        if (!empty($_SESSION['success']['contact_form'])) {
-            echo '<div class="alert alert-success">' . $_SESSION['success']['contact_form'] . '</div>';
-        }
+    // public static function display()
+    // {
+    //     // Hiển thị thông báo thành công
+    //     if (!empty($_SESSION['success']['contact_form'])) {
+    //         echo '<div class="alert alert-success">' . $_SESSION['success']['contact_form'] . '</div>';
+    //     }
 
-        // Hiển thị thông báo lỗi
-        if (!empty($_SESSION['error']['contact_form'])) {
-            echo '<div class="alert alert-danger">' . $_SESSION['error']['contact_form'] . '</div>';
-        }
+    //     // Hiển thị thông báo lỗi
+    //     if (!empty($_SESSION['error']['contact_form'])) {
+    //         echo '<div class="alert alert-danger">' . $_SESSION['error']['contact_form'] . '</div>';
+    //     }
 
-        // Xóa thông báo sau khi hiển thị
-        self::unset();
-    }
+    //     // Xóa thông báo sau khi hiển thị
+    //     self::unset();
+    // }
 }
 
 
