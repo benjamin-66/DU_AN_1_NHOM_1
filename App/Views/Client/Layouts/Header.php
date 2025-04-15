@@ -9,6 +9,9 @@ class Header extends BaseView
 {
     public static function render($data = null)
     {
+        unset($_SESSION['user']);
+        $is_login= AuthHelper::checklogin();
+        
 
 ?>
 <!DOCTYPE html>
@@ -70,16 +73,34 @@ class Header extends BaseView
                                 <a class="nav-link" href="/post">Bài Viết</a>
                             </li>
 
-                            <li class="nav-item submenu dropdown">
+                            <?php
+                        if ($is_login) :
+                        ?>
+
+<li class="nav-item"><a class="nav-link" href="/logout">Đăng Xuất  </a></li>
+                       <?php
+                        else:
+
+                        ?>
+
+<li class="nav-item submenu dropdown">
                                 <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     Trang
-                                </a>
-                                <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" href="/register">Đăng Ký </a></li>
                                     <li class="nav-item"><a class="nav-link" href="/login">Đăng Nhập </a></li>
                                
                                 </ul>
+                                </a>
+                              
                             </li>
+
+                             
+                       <?php
+                        endif;
+                        ?>
+
+
 
                             <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/contact') ? 'active' : '' ?>">
                                 <a class="nav-link" href="/contact">Liên Hệ</a>

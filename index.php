@@ -32,10 +32,15 @@ Route::get('/cart', 'App\Controllers\Client\CartController@index');
 //trang bài viết
 Route::get('/post', 'App\Controllers\Client\PostController@index');
 
-// login cient
+// client đăng ký 
 Route::get('/', 'App\Controllers\Client\HomeController@index');
 Route::get('/register', 'App\Controllers\Client\AuthController@register');
 Route::post('/register', 'App\Controllers\Client\AuthController@registerAction');
+
+// client đăng nhập 
+Route::get('/', 'App\Controllers\Client\HomeController@index');
+Route::get('/login', 'App\Controllers\Client\AuthController@login');
+Route::post('/login', 'App\Controllers\Client\AuthController@loginAction');
 // *** Admin
 
 Route::get('/admin', 'App\Controllers\Admin\HomeController@index');

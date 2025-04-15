@@ -6,6 +6,7 @@ use App\Helpers\NotificationHelper;
 use App\Models\Comment;
 use App\Models\Product;
 use App\Models\User;
+use App\Validations\AuthValidation;
 use App\Views\Client\Components\Notification;
 use App\Views\Client\Layouts\Footer;
 use App\Views\Client\Layouts\Header;
@@ -30,13 +31,7 @@ class AuthController {
 
 
     // bắt lỗi validation 
-    $is_valid=true;
-    if(isset($_POST["username"]) || $_POST['username']==='')
-    {
-        NotificationHelper::error('username','Không được để trống tên đăng nhập ');
-      $is_valid=false;
-
-    }
+  $is_valid=AuthValidation::register();
     if(!$is_valid){
 
         NotificationHelper::error('register_valid','Đăng Ký Thất Bại ');
@@ -64,12 +59,59 @@ $data=[
 $result =AuthHelper ::register($data);
 if($result){
 //  var_dump('Thêm oki');
-header('location:/');
+header('location:/login');
 
  }else {
     header('location:/register');
 // var_dump('Thêm loi');
  }
  }
+
+
+ // hiện thị giao diện form đăng nhập
+ public static function login()
+ {
+//    $category = new Category();
+//        $categories = $category->getAllCategoryByStatus();
+//        $data = [
+
+//            'categories' => $categories
+//        ];
+   Header::render();
+   Notification::render();
+   NotificationHelper::unset();
+Login::render();
+   Footer::render();
+ }
+
+
+ public static function loginAction()
+ {  // bắt lỗi 
+$is_valid=AuthValidation::login();
+if(!$is_valid){
+    NotificationHelper::error('login','Đăng nhập thất bại ');
+
+    header('location:/login');
+    exit();
+
+ };
+
+ $data = [
+    'username' => $_POST['username'],
+    'password' => $_POST['password'],
+    'remember' => isset($_POST['remember'])
+];
+
+$result = AuthHelper::login($data);
+
+if ($result) {
+    NotificationHelper::success('login', 'Đăng nhập thành công');
+    header('location: /');
+} else {
+    NotificationHelper::error('login', 'Đăng nhập thất bại');
+    header('location: /login');
+}
+ }
+
 
 }   
