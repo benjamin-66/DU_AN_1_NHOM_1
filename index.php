@@ -48,8 +48,10 @@ Route::get('/logout', 'App\Controllers\Client\AuthController@logout');
 Route::get('/users/{id}', 'App\Controllers\Client\AuthController@edit');
 Route::put('/users/{id}', 'App\Controllers\Client\AuthController@update');
 
-
-
+// client giỏ hàng 
+Route::get(url: '/cart', controllerMethod: 'App\Controllers\Client\CartController@index');
+    Route::post('/cart/add', 'App\Controllers\Client\CartController@add');
+    Route::get('/cart/remove/{id}', 'App\Controllers\Client\CartController@remove');
 
 
 

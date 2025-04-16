@@ -27,6 +27,18 @@ class Index extends BaseView
                 /* Đặt chiều rộng tối đa cho cột */
             }
         </style>
+
+<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
         <div class="container mt-5 mb-5">
             <h1 class="text-center">Giỏ hàng</h1>
 
@@ -38,7 +50,7 @@ class Index extends BaseView
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Số lượng</th>
                         <th scope="col">Giá</th>
-                        <th scope="col">Tống tiền</th>
+                        <th scope="col">Tổng tiền</th>
                         <th scope="col">Xóa</th>
                     </tr>
                 </thead>
@@ -49,15 +61,19 @@ class Index extends BaseView
                     $total = 0;
                     if (isset($_SESSION['cart'])) {
                         foreach ($_SESSION['cart'] as $key => $item) {
-                            $total += $item['price'] * $item['quantity'];
+                            // Kiểm tra xem giá trị có hợp lệ trước khi thực hiện number_format
+                            $price = isset($item['price']) && is_numeric($item['price']) ? $item['price'] : 0;
+                            $quantity = isset($item['quantity']) && is_numeric($item['quantity']) ? $item['quantity'] : 0;
+                            $item_total = $price * $quantity;
+                            $total += $item_total;
                     ?>
 
                             <tr>
-                                <td><img src="<?= APP_URL ?>/public/uploads/products/<?= $item['image'] ?>" alt="" style="width: 100px; height: 100px;"></td>
-                                <td><?= $item['name'] ?></td>
-                                <td><?= $item['quantity'] ?></td>
-                                <td><?= number_format($item['price']) ?></td>
-                                <td><?= number_format($item['price'] * $item['quantity']) ?></td>
+                            <td><img src="<?= APP_URL ?>/public/uploads/products/<?= htmlspecialchars($item['image'] ?? '') ?>" alt="" style="width: 100px; height: 100px;"></td>
+<td><?= htmlspecialchars($item['name'] ?? '') ?></td>
+<td><?= htmlspecialchars($item['quantity'] ?? '') ?></td>
+                                <td><?= number_format($price) ?></td>
+                                <td><?= number_format($item_total) ?></td>
                                 <td>
                                     <a href="/cart/remove/<?= $item['product_id'] ?>" class="btn btn-danger">Xóa</a>
                                 </td>
@@ -67,9 +83,8 @@ class Index extends BaseView
                     }
                     ?>
                     <tr>
-                        <td colspan="6" scope="col">Tổng tiền</td>
+                        <td colspan="5" scope="col">Tổng tiền</td>
                         <td><?= number_format($total) ?> Vnd</td>
-
                     </tr>
                 </tbody>
             </table>
@@ -108,11 +123,8 @@ class Index extends BaseView
 
         </div>
 
-
-
-
-
 <?php
 
     }
 }
+?>

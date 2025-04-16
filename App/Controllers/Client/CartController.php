@@ -12,41 +12,41 @@ use App\Views\Client\Pages\Cart\Index;
 
 class CartController {
     public static function index()
-     {
+    {
         Header::render();
-        index::render();
+        Index::render();
         Footer::render();
     }
 
-
     public static function add()
     {
-        {
-            $data = $_POST;
-            $product_id = $data['product_id'];
+        $data = $_POST;
+        $product_id = $data['product_id'];
+        $quantity = $data['quantity'];  // Lấy số lượng từ form
     
-            //nếu có 1 sản phẩm đó trong giỏ hàng rồi thì tăng số lượng lên
-            if (isset($_SESSION['cart'][$product_id])) {
-                $_SESSION['cart'][$product_id]['quantity'] += 1;
-                // NotificationHelper::set('success', 'Thêm sản phẩm vào giỏ hàng thành công');
-                header('Location: /cart');
-                return;
-            }
-    
-            $cart = $_SESSION['cart'] ?? [];
-    
-            $cart[$product_id] = [
+        // Kiểm tra nếu sản phẩm đã có trong giỏ thì chỉ cần cộng số lượng
+        if (isset($_SESSION['cart'][$product_id])) {
+            $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+        } else {
+            // Nếu chưa có sản phẩm thì thêm mới
+            $_SESSION['cart'][$product_id] = [
                 'product_id' => $data['product_id'],
                 'name' => $data['name'],
                 'image' => $data['image'],
-                'quantity' => 1,
+                'quantity' => $quantity,
                 'price' => $data['price']
             ];
-    
-            $_SESSION['cart'] = $cart;
-            // NotificationHelper::set('success', 'Thêm sản phẩm vào giỏ hàng thành công');
-            header('Location: /cart');
         }
-    
+        
+        // Điều hướng về giỏ hàng
+        header('Location: /cart');
+    }
+
+    public function remove($id)
+    {
+        $cart = $_SESSION['cart'] ?? [];
+        unset($cart[$id]);
+        $_SESSION['cart'] = $cart;
+        header('Location: /cart');
     }
 }
