@@ -14,7 +14,7 @@ class CategoryValidation
             $is_valid = false;
         }
         if (!isset($_POST['status']) || $_POST['status'] === '') {
-            NotificationHelper::error('status', 'Vui lòng k để trống trạng thái');
+            NotificationHelper::error('status', 'Vui lòng không để trống trạng thái');
             $is_valid = false;
         }
         return $is_valid;
@@ -23,11 +23,11 @@ class CategoryValidation
     {
         $is_valid = true;
         if (!isset($_POST['name']) || $_POST['name'] === '') {
-            NotificationHelper::error('name', 'Vui lòng k để trống tên loại');
+            NotificationHelper::error('name', 'Vui lòng không để trống tên loại');
             $is_valid = false;
         }
         if (!isset($_POST['status']) || $_POST['status'] === '') {
-            NotificationHelper::error('status', 'Vui lòng k để trống trạng thái');
+            NotificationHelper::error('status', 'Vui lòng không để trống trạng thái');
             $is_valid = false;
         }
         return $is_valid;

@@ -30,7 +30,7 @@ class Register extends BaseView
                     <div class="card card-body">
                         <h2 class="text-center text-danger">ĐĂNG KÝ</h2>
 
-                        <form action="#" method="post">
+                        <form action="/register" method="post">
 							<input type="hidden" name="method" value="POST" >
                             <div class="form-group">
                                 <label for="name">Họ và tên</label>

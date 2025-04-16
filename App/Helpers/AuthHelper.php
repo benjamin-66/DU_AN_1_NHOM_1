@@ -109,19 +109,37 @@ class AuthHelper
         return false;
     }
  
+public static function logout(){
+
+    if(isset($_SESSION['user'])){
+        unset($_SESSION['user']);
+}
+
+if(isset($_COOKIE['user'])){
+    setcookie('user','', time() - 3600 * 24 * 30 * 12, '/');
+}
+
+}
+
+public static function edit($id): bool
+{
+   if (!self::checklogin()) {
+
+    NotificationHelper::error('login','Vui lòng đăng nhập để xem thông tin ');
+    return false;
+   }
+
+   $data=$_SESSION['user'];
+   $user_id=$data['id'];
+   if($user_id!=$id){
+    NotificationHelper::error('user_id','Không có quyền xem thông tin tài khoản này ');
+    return false;
+   }
+   return true;
+
+}
 
 
-    // public static function logout()
-    // {
-    //     unset($_SESSION['user']);
-    //     if (isset($_SESSION['user'])) {
-    //         unset($_SESSION['user']);
-    //     }
-
-    //     if (isset($_COOKIE['user'])) {
-    //         setcookie('user', '', time() - 3600 * 24 * 30 * 12, '/');
-    //     }
-    // }
 
     // public static function edit($id): bool
     // {

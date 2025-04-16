@@ -174,7 +174,7 @@ class ProductController
         }
         $result = $product->updateProduct($id, $data);
         if ($result) {
-            NotificationHelper::success('update', 'cập nhật thành công');
+            NotificationHelper::success('update', 'Cập nhật thành công');
             header('location: /admin/products');
         } else {
             NotificationHelper::error('update', 'Cập nhật thất bại');

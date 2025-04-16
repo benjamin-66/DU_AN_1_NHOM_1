@@ -137,7 +137,7 @@ class CategoryController
         ];
         $result = $category->updateCategory($id, $data);
         if ($result) {
-            NotificationHelper::success('update', 'cập nhật thành công');
+            NotificationHelper::success('update', 'Cập nhật thành công');
             header('location: /admin/categories');
         } else {
             NotificationHelper::error('update', 'Cập nhật thất bại');

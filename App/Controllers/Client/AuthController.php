@@ -10,6 +10,7 @@ use App\Validations\AuthValidation;
 use App\Views\Client\Components\Notification;
 use App\Views\Client\Layouts\Footer;
 use App\Views\Client\Layouts\Header;
+use App\Views\Client\Pages\Auth\Edit;
 use App\Views\Client\Pages\Auth\Login;
 use App\Views\Client\Pages\Auth\Register;
 
@@ -112,6 +113,52 @@ if ($result) {
     header('location: /login');
 }
  }
+
+
+
+public static function logout()
+{
+
+    AuthHelper::logout();
+    NotificationHelper::success('logout','Đăng xuất thành công ');
+    header('location:/');
+}
+
+public static function edit($id)
+{
+    // Lấy thông tin người dùng dựa trên $id từ cơ sở dữ liệu hoặc session
+    // Ví dụ: Lấy thông tin người dùng theo ID
+    $result = AuthHelper::edit($id);
+
+    if (!$result) {
+        if (isset($_SESSION['error']['login'])) {
+            header('location:/login');
+            exit();
+        }
+
+        if (isset($_SESSION['error']['user_id'])) {
+            $data = $_SESSION['user']; // Lấy thông tin người dùng từ session
+            $user_id = $data['id'];
+            header("location: /users/$user_id");
+            exit();
+        }
+    }
+
+    // Kiểm tra nếu session không có dữ liệu người dùng
+    if (!isset($_SESSION['user'])) {
+        header('location:/login');
+        exit();
+    }
+
+    $data = $_SESSION['user']; // Lấy dữ liệu người dùng từ session
+    Header::render();
+    Notification::render();
+    NotificationHelper::unset();
+
+    // Gọi render để hiển thị trang chỉnh sửa thông tin người dùng
+    Edit::render($data);
+    Footer::render();
+}
 
 
 }   
