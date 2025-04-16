@@ -82,10 +82,69 @@ class AuthValidation
         $is_valid = false;
 
     }
- 
 
     
-
     return $is_valid;
   }
+
+  public static function edit(): bool
+  {
+      $is_valid = true;
+
+      // email
+      if (!isset($_POST['email']) || $_POST['email'] === '') {
+          NotificationHelper::error('email', 'Không để trống email');
+          $is_valid = false;
+      } else {
+          //    kiểm tra đúng dạng email
+          $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+          if (!preg_match($emailPattern, $_POST['email'])) {
+              NotificationHelper::error('email', 'Email không đúng định dạng');
+          }
+      }
+
+      //họ và tên
+      if (!isset($_POST['name']) || $_POST['name'] === '') {
+          NotificationHelper::error('name', 'không để họ và tên');
+          $is_valid = false;
+      }
+
+      return $is_valid;
+  }
+
+
+  public static function uploadAvatar() {
+    if (!file_exists($_FILES['avatar']['tmp_name']) || !is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+        return false;
+    }
+
+    $target_dir = 'public/uploads/users/';
+    
+    // Kiểm tra thư mục upload có tồn tại không
+    if (!file_exists($target_dir)) {
+        mkdir($target_dir, 0777, true); // Tạo thư mục nếu chưa có
+    }
+
+    // Kiểm tra loại file upload có hợp lệ không
+    $imageFileType = strtolower(pathinfo(basename($_FILES['avatar']['name']), PATHINFO_EXTENSION));
+    if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg' && $imageFileType != 'gif') {
+        NotificationHelper::error('type_upload', 'Chỉ nhận file ảnh JPG, PNG, JPEG, GIF');
+        return false;
+    }
+
+    // Thay đổi tên file thành dạng năm tháng ngày giờ phút giây
+    $nameImage = date('YmdHis') . '.' . $imageFileType;
+
+    // Đường dẫn đầy đủ để di chuyển file
+    $target_file = $target_dir . $nameImage;
+
+    // Di chuyển file từ tạm thời vào thư mục đích
+    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $target_file)) {
+        NotificationHelper::error('move_upload', 'Không thể tải ảnh vào thư mục đã lưu trữ');
+        return false;
+    }
+
+    return $nameImage;
+}
+
 }

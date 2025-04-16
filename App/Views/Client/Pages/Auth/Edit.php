@@ -35,7 +35,7 @@ class Edit extends BaseView
                     <?php
                     else :
                     ?>
-                        <img src="<?= APP_URL ?>/public/uploads/users/user2.jpeg" alt="" width="100%">
+                        <img src="<?= APP_URL ?>/public/uploads/users/user1.jpeg" alt="" width="100%">
 
                     <?php
                     endif;

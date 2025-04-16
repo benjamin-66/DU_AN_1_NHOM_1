@@ -23,15 +23,11 @@ class ProductController
 
         $product = new Product();
         $products = $product->getAllProductByStatus();
-      
         //$productwithdetail = $product->getAllProductsWithDetails();
-
         $data = [
             'products' => $products,
-            'categories' => $categories,             //'productWithDetail' => $productwithdetai
-
+            'categories' => $categories,             
         ];
-
         Header::render();
         Index::render($data);
         Footer::render();
@@ -71,6 +67,8 @@ class ProductController
     ProductCategory::render($data);
     Footer::render();
 }
+
+
 
 
 

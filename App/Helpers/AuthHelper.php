@@ -138,36 +138,35 @@ public static function edit($id): bool
    return true;
 
 }
+public static function update($id, $data)
+{
+    $user = new User();
+    
+    // Cập nhật người dùng
+    $result = $user->updateUser($id, $data);
 
+    if (!$result) {
+        NotificationHelper::error('update_user', 'Cập nhật thông tin tài khoản thất bại');
+        return false;
+    }
 
+    // Kiểm tra session
+    if (isset($_SESSION['user'])) {
+        self::updateSession($id);
+    }
 
-    // public static function edit($id): bool
-    // {
-    //     if (!self::checkLogin()) {
-    //         NotificationHelper::error('login', 'Vui lòng đăng nhập để xem thông tin');
-    //         return false;
-    //     }
+    // Kiểm tra cookie
+    if (isset($_COOKIE['user'])) {
+        self::updateCookie($id);
+    }
 
-    //     $data = $_SESSION['user'];
-    //     $user_id = $data['id'];
-
-    //     if (isset($_COOKIE['user'])) {
-    //         self::updateCookie($user_id);
-    //     }
-
-    //     self::updateSession($user_id);
-
-    //     if ($user_id != $id) {
-    //         NotificationHelper::error('user', 'Không có quyền xem thông tin tài khoản này');
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    NotificationHelper::success('update_user', 'Cập nhật thông tin tài khoản thành công');
+    return true;
+}
 
     // public static function update($id, $data)
     // {
-    //     $user = new User();
-    //     $result = $user->updateUser($id, $data);
+       
 
     //     if (!$result) {
     //         NotificationHelper::error('update_user', 'Cập nhật thông tin tài khoản thất bại');

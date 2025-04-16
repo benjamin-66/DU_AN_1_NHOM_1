@@ -161,4 +161,33 @@ public static function edit($id)
 }
 
 
+public static function update($id)
+{
+
+$is_valid=AuthValidation::edit();
+
+if (!$is_valid) {
+NotificationHelper::error('update_user','Cập Nhật thông tin tài khoản thất bại ');
+header("location:/users/$id");
+exit(); 
+
+}
+$data = [
+    'email' => $_POST['email'],
+    'name' => $_POST['name'],
+    
+];
+// kiểm tra có upload hình ảnh không 
+$is_upload=AuthValidation::uploadAvatar();
+if($is_upload){
+  $data['avatar']=$is_upload;
+
+}
+   //gọi helper để update
+   $result = AuthHelper::update($id, $data);
+   //kiểm tra kết quả trả về và chuyển hướng
+   header("location: /users/$id");
+
+}
+
 }   
