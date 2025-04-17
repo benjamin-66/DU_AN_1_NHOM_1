@@ -1,4 +1,6 @@
 <?php
+
+use App\Helpers\AuthHelper;
 session_start();
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -16,6 +18,9 @@ $dotenv->load();
 require_once 'config.php';
 
 
+AuthHelper::middleware();
+
+// exit;
 
 // *** Client
 Route::get('/', 'App\Controllers\Client\HomeController@index');
