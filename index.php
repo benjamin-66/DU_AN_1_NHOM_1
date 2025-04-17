@@ -101,13 +101,13 @@ Route::get('/admin/users/create', 'App\Controllers\Admin\UserController@create')
 Route::post('/admin/users', 'App\Controllers\Admin\UserController@store');
 Route::get('/admin/users/{id}', 'App\Controllers\Admin\UserController@edit');
 Route::put('/admin/users/{id}', 'App\Controllers\Admin\UserController@update');
+Route::delete('/admin/users/{id}', 'App\Controllers\Admin\UserController@delete');
 
 // comment
 Route::get('/admin/comments', 'App\Controllers\Admin\CommentController@index');
-// Route::get('/admin/comments/create', 'App\Controllers\Admin\CommentController@create');
-Route::post('/admin/comments', 'App\Controllers\Admin\CommentController@store');    
 Route::get('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@edit');
 Route::put('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@update');
+Route::delete('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@delete');
 
 
 Route::dispatch($_SERVER['REQUEST_URI']);

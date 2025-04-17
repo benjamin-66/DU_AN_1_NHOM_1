@@ -68,18 +68,59 @@ class userValidation
     public static function edit()
     {
         $is_valid = true;
+
+     
+
+        // mật khẩu
+        if (isset($_POST['password']) && $_POST['password'] !== '') {
+            if (strlen($_POST['password']) < 3) {
+                //kiểm tra đo dài
+                NotificationHelper::error('password', 'Mật khẩu phải từ 3 ký tự');
+                $is_valid = false;
+            }
+            if (!isset($_POST['re_password']) || $_POST['re_password'] === '') {
+                NotificationHelper::error('re_password', 'Không để trống nhập lại mật khẩu');
+                $is_valid = false;
+            } else {
+                if ($_POST['password'] !== $_POST['re_password']) {
+                    NotificationHelper::error('re_password', 'Trường mật khẩu và nhập lại mật khẩu phải giống nhau');
+                    $is_valid = false;
+                }
+            }
+        } 
+
+        // nhập lại mật khẩu
+       
+        // email
+        if (!isset($_POST['email']) || $_POST['email'] === '') {
+            NotificationHelper::error('email', 'Không để trống email');
+            $is_valid = false;
+        } else {
+            $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+            if (!preg_match($emailPattern, $_POST['email'])) {
+                NotificationHelper::error('email', 'Email không đúng định dạng');
+                $is_valid = false;
+            }
+        }
+
+        //  họ và tên
         if (!isset($_POST['name']) || $_POST['name'] === '') {
-            NotificationHelper::error('name', 'Vui lòng k để trống tên loại');
+            NotificationHelper::error('name', 'Không để trống họ và tên');
             $is_valid = false;
         }
+
+        //  trạng thái
         if (!isset($_POST['status']) || $_POST['status'] === '') {
-            NotificationHelper::error('status', 'Vui lòng k để trống trạng thái');
+            NotificationHelper::error('status', 'Không để trống trạng thái');
             $is_valid = false;
         }
+        // Kiểm tra trạng thái
         return $is_valid;
     }
     public static function uploadAvatar()
     {
         return AuthValidation::uploadAvatar();
     }
+
+    
 }

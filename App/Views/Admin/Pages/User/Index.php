@@ -76,10 +76,18 @@ class Index extends BaseView
                                                         <td><?= ($item['status'] == 1) ? 'Hoạt động' : 'Ẩn' ?></td>
                                                         <td>
                                                             <a href="/admin/users/<?= $item['id'] ?>" class="btn btn-primary ">Sửa</a>
-                                                            <form action="/admin/users/<?= $item['id'] ?>" method="post" style="display: inline-block;" onsubmit="return confirm('Chắc chưa?')">
+                                                            <?php
+                                                            if($_SESSION['user']['id'] !=$item['id']):
+                                                            ?>
+                                                            <form action="/admin/users/<?= $item['id'] ?>" method="post" style="display: inline-block;" onsubmit="return confirm('bạn có muốn xóa không?')">
                                                                 <input type="hidden" name="method" value="DELETE" id="">
                                                                 <button type="submit" class="btn btn-danger text-white">Xoá</button>
                                                             </form>
+
+                                                            <?php
+                                                            endif;
+                                                            ?>
+
                                                         </td>
                                                     </tr>
                                                 <?php
