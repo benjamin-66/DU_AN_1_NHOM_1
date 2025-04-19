@@ -164,26 +164,7 @@ public static function update($id, $data)
     return true;
 }
 
-    // public static function update($id, $data)
-    // {
-       
-
-    //     if (!$result) {
-    //         NotificationHelper::error('update_user', 'Cập nhật thông tin tài khoản thất bại');
-    //         return false;
-    //     }
-
-    //     if ($_SESSION['user']) {
-    //         self::updateSession($id);
-    //     }
-
-    //     if ($_COOKIE['user']) {
-    //         self::updateCookie($id);
-    //     }
-
-    //     NotificationHelper::success('update_user', 'cập nhật thông tin tài khoản thành công');
-    //     return true;
-    // }
+    
 
 
     // public static function forgotPassword($data)
@@ -204,31 +185,33 @@ public static function update($id, $data)
     // }
 
 
-    // public static function middleware()
-    // {
-    //     // var_dump($_SERVER['REQUEST_URI']);
-    //     $admin = explode('/', $_SERVER['REQUEST_URI']);
-    //     // var_dump($admin);
-    //     $admin = $admin[1];
 
-    //     if ($admin == 'admin') {
-    //         // if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
-    //         //     NotificationHelper::error('admin', 'Tài khoản này không có quyền truy cập');
-    //         //     header('location: /login');
-    //         //     exit;
-    //         // }
+    
+    public static function middleware()
+    {
+        // var_dump($_SERVER['REQUEST_URI']);
+        $admin = explode('/', $_SERVER['REQUEST_URI']);
+        // var_dump($admin);
+        $admin = $admin[1];
 
-    //             if (!isset($_SESSION['user'])) {
-    //                 NotificationHelper::error('admin', 'Vui lòng đăng nhập');
-    //                 header('location: /login');
-    //                 exit;
-    //             }
+        if ($admin == 'admin') {
+            // if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
+            //     NotificationHelper::error('admin', 'Tài khoản này không có quyền truy cập');
+            //     header('location: /login');
+            //     exit;
+            // }
 
-    //             if ($_SESSION['user']['role'] != 1) {
-    //                 NotificationHelper::error('admin', 'Tài khoản này không có quyền truy cập');
-    //                 header('location: /login');
-    //                 exit;
-    //             }
-    //     }
-    // }
+                if (!isset($_SESSION['user'])) {
+                    NotificationHelper::error('admin', 'Vui lòng đăng nhập');
+                    header('location: /login');
+                    exit;
+                }
+
+                if ($_SESSION['user']['role'] != 1) {
+                    NotificationHelper::error('admin', 'Tài khoản này không có quyền truy cập');
+                    header('location: /login');
+                    exit;
+                }
+        }
+    }
 }
