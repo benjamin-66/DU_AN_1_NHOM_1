@@ -17,5 +17,7 @@ class HomeController
         Header::render();
         Home::render();
         Footer::render();
+        Notification::render();
+        NotificationHelper::unset();
     }
 }

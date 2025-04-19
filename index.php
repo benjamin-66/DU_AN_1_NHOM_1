@@ -108,10 +108,21 @@ Route::delete('/admin/products/{id}', 'App\Controllers\Admin\ProductController@d
 
 //user
 Route::get('/admin/users', 'App\Controllers\Admin\UserController@index');
+
+// GET /users/create (hiển thị form thêm người dùng)
 Route::get('/admin/users/create', 'App\Controllers\Admin\UserController@create');
+
+// POST /users (tạo mới một người dùng)
 Route::post('/admin/users', 'App\Controllers\Admin\UserController@store');
+
+// GET /users/{id} (lấy chi tiết người dùng với id cụ thể)
 Route::get('/admin/users/{id}', 'App\Controllers\Admin\UserController@edit');
+
+// PUT /users/{id} (update người dùng với id cụ thể)
 Route::put('/admin/users/{id}', 'App\Controllers\Admin\UserController@update');
+
+// DELETE /users/{id} (delete người dùng với id cụ thể)
+Route::delete('/admin/users/{id}', 'App\Controllers\Admin\UserController@delete');
 
 // comment
 Route::get('/admin/comments', 'App\Controllers\Admin\CommentController@index');
@@ -119,6 +130,6 @@ Route::get('/admin/comments', 'App\Controllers\Admin\CommentController@index');
 Route::post('/admin/comments', 'App\Controllers\Admin\CommentController@store');    
 Route::get('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@edit');
 Route::put('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@update');
-
+Route::delete('/admin/users/{id}', 'App\Controllers\Admin\UserController@delete');
 
 Route::dispatch($_SERVER['REQUEST_URI']);
