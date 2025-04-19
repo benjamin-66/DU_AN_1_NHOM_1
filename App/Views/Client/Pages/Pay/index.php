@@ -169,7 +169,10 @@ class Index extends BaseView
                                 </div>
                             </div>
                         </section>
-            <!-- Trang Thanh Toán Bắt Đầu -->
+            <!-- Trang Thanh Toán Bắt Đầu --><?php
+// Kiểm tra xem có thông báo thanh toán thành công hay không
+
+?>
             <div class="container-fluid py-5">
                 <div class="container py-5">
                     <h1 class="mb-4">Thanh toán</h1>
@@ -178,7 +181,7 @@ class Index extends BaseView
         <div class="col-md-12 col-lg-6 col-xl-7">
             <div class="form">
                 <label class="form-label">Họ tên <sup>*</sup></label>
-                <input type="text" name="fullname" class="form-control" placeholder="Họ tên" required>
+                <input type="text" name="name" class="form-control" placeholder="Họ tên" required>
             </div>
             <div class="form">
                 <label class="form-label">Địa chỉ <sup>*</sup></label>
