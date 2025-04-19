@@ -58,7 +58,10 @@ Route::get(url: '/cart', controllerMethod: 'App\Controllers\Client\CartControlle
     Route::post('/cart/add', 'App\Controllers\Client\CartController@add');
     Route::get('/cart/remove/{id}', 'App\Controllers\Client\CartController@remove');
 
-
+    Route::get('/pay', 'App\Controllers\Client\PayController@index');
+    Route::post('/pay', 'App\Controllers\Client\PayController@store');
+    Route::get('/pay/success', 'App\Controllers\Client\PayController@success');
+    
 
 
 // *** Admin
