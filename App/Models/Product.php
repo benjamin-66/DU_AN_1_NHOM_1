@@ -103,6 +103,25 @@ class Product extends BaseModel
             return $result;
         }
     }
+    
+    public function countTotalProduct()
+    {
+        return $this->countTotal();
+    }
+
+
+    public function countProductByCategory()
+    {
+        $result = [];
+        try {
+            $sql = "SELECT COUNT(*) AS count,categories.name FROM products INNER JOIN categories ON products.category_id = categories.id GROUP BY products.category_id;";
+            $result = $this->_conn->MySQLi()->query($sql);
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } catch (\Throwable $th) {
+            error_log('Lỗi khi hiển thị dữ liệu: ' . $th->getMessage());
+            return $result;
+        }
+    }
 
 
 }

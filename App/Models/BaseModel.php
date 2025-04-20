@@ -148,5 +148,16 @@ abstract class BaseModel implements CrudInterface
         }
     }
     
-
+    public function countTotal()
+    {
+        $result = [];
+        try {
+            $sql = "SELECT COUNT(*) AS total FROM $this->table";
+            $result = $this->_conn->MySQLi()->query($sql);
+            return $result->fetch_assoc();
+        } catch (\Throwable $th) {
+            error_log('Lỗi khi count tất cả dữ liệu: ' . $th->getMessage());
+            return $result;
+        }
+    }
 }
