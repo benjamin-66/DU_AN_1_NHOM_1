@@ -12,7 +12,7 @@ use App\Views\Admin\Components\Notification;
 use App\Views\Admin\Pages\Product\Create;
 use App\Views\Admin\Pages\Product\Index;
 use App\Views\Admin\Pages\Product\Edit;
-
+use App\Views\Admin\Pages\Product\Detail;
 class ProductController
 {
 
@@ -43,57 +43,77 @@ class ProductController
         Create::render($data);
         Footer::render();
      }
+    //  public static function detail($id)
+    //  {
+    //      $product_detail = [
+    //          'id' => $id,
+    //          'name' => 'Product 1',
+    //          'description' => 'Description Product 1',
+    //          'price' => 100000,
+    //          'discount_price' => 10000,
+    //          'image' => 'product.jpg',
+    //          'status' => 1
+    //      ];
 
+    //      $product = new Product();
+    //      $data = [
+    //          'product' => $product_detail
+    //      ];
+     
+    //      $product = new Product();
+    //      Header::render();
+    //      Detail::render($data);
+    //      Footer::render();
+    //  }
 
    // xử lý chức năng thêm
-    public static function store()
-    {
-        $is_valid =ProductValidation::create();
-        
-        if (!$is_valid){
-            NotificationHelper::error('store','Thêm loại sản phẩm thất bại');
-            header('location: /admin/products/create');
-            exit;
-        }
-        $name=$_POST['name'];
-      
-        $status=$_POST['status'];
+   public static function store()
+{
+    $is_valid = ProductValidation::create();
 
-       // kiểm tra tên sp có tồn tại chưa=> kh được trùng tên
-      $product=new Product();
-       $is_exist=$product->getOneProductByName($name);
-       if($is_exist){
-        NotificationHelper::error('store','Tên loại sản phẩm đã tồn tại');
-            header('location: /admin/products/create');
-            exit;
-       }
-       //Thực hiện thêm
-       $data=[
+    if (!$is_valid) {
+        NotificationHelper::error('store', 'Thêm loại sản phẩm thất bại');
+        header('location: /admin/products/create');
+        exit;
+    }
+
+    $name = $_POST['name'];
+    $status = $_POST['status'];
+
+    $product = new Product();
+    $is_exist = $product->getOneProductByName($name);
+    if ($is_exist) {
+        NotificationHelper::error('store', 'Tên loại sản phẩm đã tồn tại');
+        header('location: /admin/products/create');
+        exit;
+    }
+
+    // ✅ Đã sửa dòng is_featured ở đây:
+    $data = [
         'name' => $name,
         'price' => $_POST['price'],
         'discount_price' => $_POST['discount_price'],
-        'is_feature' => $_POST['is_feature'],
+        'is_featured' => isset($_POST['is_featured']) ? 1 : 0,
         'status' => $_POST['status'],
         'category_id' => $_POST['category_id'],
         'description' => $_POST['description'],
-       ];
-       $is_upload = ProductValidation::uploadImage();
-       if ($is_upload) {
-           $data['image'] = $is_upload;};
+    ];
 
-
-
-       $result=$product->createProduct($data);
-       if($result){
-        NotificationHelper::success('store','Thêm  sản phẩm thành công');
-            header('location: /admin/products');
-            
-       }
-       else{
-        NotificationHelper::error('store','Thêm loại sản phẩm thất bại');
-            header('location: /admin/products/create');
-       }
+    $is_upload = ProductValidation::uploadImage();
+    if ($is_upload) {
+        $data['image'] = $is_upload;
     }
+
+    $result = $product->createProduct($data);
+    if ($result) {
+        NotificationHelper::success('store', 'Thêm sản phẩm thành công');
+        header('location: /admin/products');
+    } else {
+        NotificationHelper::error('store', 'Thêm loại sản phẩm thất bại');
+        header('location: /admin/products/create');
+    }
+}
+
 
 
 

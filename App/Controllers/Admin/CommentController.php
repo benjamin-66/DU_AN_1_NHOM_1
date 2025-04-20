@@ -19,8 +19,12 @@ class CommentController
     public static function index()
     {         
         $Comment = new Comment();
+       
+       
         $data = $Comment-> getAllCommentJionProductAndUser();
-
+        // echo '<pre>';
+        // var_dump($data);
+       
         Header::render();  
         Notification::render();
         NotificationHelper::unset();           
@@ -43,11 +47,7 @@ class CommentController
     }
 
 
-    // hiển thị chi tiết
-       
-    
-
-
+    // hiển thị chi tiết      
     // hiển thị chi tiết
     public static function show()
     {
@@ -59,9 +59,11 @@ class CommentController
     {
         $Comment = new Comment();
         $data = $Comment->getOneCommentJoinProductAndUser($id);
+        // echo '<pre>';
+        // var_dump($data);
         if (!$data) {
-            NotificationHelper::error('edit', 'Không thể xem');
-            header('location: /admin/Comments');
+            NotificationHelper::error('edit', 'Không thể xem bình luận này');
+            header('location: /admin/comments');
             exit;
         }
         Header::render();
@@ -69,6 +71,7 @@ class CommentController
         NotificationHelper::unset();
         Edit::render($data);
         Footer::render();
+      
     }
 
 
@@ -78,7 +81,7 @@ class CommentController
         $is_valid = CommentValidation::edit();
         if (!$is_valid) {
             NotificationHelper::error('update', 'Cập nhật thất bại');
-            header("location: /admin/Comments/$id");
+            header("location: /admin/comments/$id");
             exit;
         }
        
@@ -92,27 +95,28 @@ class CommentController
         $result = $Comment->updateComment($id, $data);
         if ($result) {
             NotificationHelper::success('update', 'cập nhật thành công');
-            header('location: /admin/Comments');
+            header('location: /admin/comments');
         } else {
             NotificationHelper::error('update', 'Cập nhật thất bại');
-            header("location: /admin/Comments/$id");
+            header("location: /admin/comments/$id");
         }
 
     }
-}
 
-//     // thực hiện xoá
-//     public static function delete(int $id)
-//     {
-//         $Comment = new Comment();
-//         $result = $Comment->deleteComment($id);
-//         if ($result) {
-//             NotificationHelper::success('delete', 'Xóa thành công');
-//         } else {
-//             NotificationHelper::error('delete', 'Xóa thất bại');
-//         }
-//         header('location: /admin/Comments');
+
+    // thực hiện xoá
+    public static function delete(int $id)
+    {
+        $Comment = new Comment();
+        $result = $Comment->deleteComment($id);
+        if ($result) {
+            NotificationHelper::success('delete', 'Xóa thành công');
+        } else {
+            NotificationHelper::error('delete', 'Xóa thất bại');
+        }
+        header('location: /admin/comments');
     
         
-//     }
+    }
  
+    }
