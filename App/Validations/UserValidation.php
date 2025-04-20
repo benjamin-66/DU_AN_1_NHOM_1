@@ -4,7 +4,7 @@ namespace App\Validations;
 
 use App\Helpers\NotificationHelper;
 
-class userValidation
+class UserValidation
 {
     public static function create(): bool
     {
@@ -12,74 +12,116 @@ class userValidation
 
         // tên đăng nhập
         if (!isset($_POST['username']) || $_POST['username'] === '') {
-            NotificationHelper::error('username', 'Không để trống tên đăng nhập');
+            NotificationHelper::error('username', 'không để trống tên đăng nhập');
             $is_valid = false;
         }
 
         // mật khẩu
         if (!isset($_POST['password']) || $_POST['password'] === '') {
-            NotificationHelper::error('password', 'Không để trống mật khẩu');
+            NotificationHelper::error('password', 'không để trống tên mật khẩu');
             $is_valid = false;
         } else {
-            // kiểm tra độ dài
             if (strlen($_POST['password']) < 3) {
-                NotificationHelper::error('password', 'Mật khẩu phải từ 3 ký tự');
+                NotificationHelper::error('password', 'Mật khẩu phải lớn hơn 3 ký tự');
                 $is_valid = false;
             }
         }
 
         // nhập lại mật khẩu
         if (!isset($_POST['re_password']) || $_POST['re_password'] === '') {
-            NotificationHelper::error('re_password', 'Không để trống nhập lại mật khẩu');
+            NotificationHelper::error('re_password', 'không để trống tên mật khẩu');
             $is_valid = false;
         } else {
-            if ($_POST['password'] !== $_POST['re_password']) {
+            // kiểm tra độ dài
+            if ($_POST['password'] != $_POST['re_password']) {
                 NotificationHelper::error('re_password', 'Trường mật khẩu và nhập lại mật khẩu phải giống nhau');
-                $is_valid = false;
             }
         }
+
+
+        // email
+        if (!isset($_POST['email']) || $_POST['email'] === '') {
+            NotificationHelper::error('email', 'không để trống email');
+            $is_valid = false;
+        } else {
+            //    kiểm tra đúng dạng email
+            $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+            if (!preg_match($emailPattern, $_POST['email'])) {
+                NotificationHelper::error('email', 'Email không đúng định dạng');
+            }
+        }
+
+        //họ và tên
+        if (!isset($_POST['name']) || $_POST['name'] === '') {
+            NotificationHelper::error('name', 'không để trống họ và tên');
+            $is_valid = false;
+        }
+
+        //trạng thái
+        if (!isset($_POST['status']) || $_POST['status'] === '') {
+            NotificationHelper::error('name', 'không để trống trạng thái');
+            $is_valid = false;
+        }
+
+
+        return $is_valid;
+    }
+    public static function edit(): bool
+    {
+        $is_valid = true;
+
+        // mật khẩu
+        if (isset($_POST['password']) && $_POST['password'] !== '') {
+            if (strlen($_POST['password']) < 3) {
+                NotificationHelper::error('password', 'Mật khẩu phải lớn hơn 3 ký tự');
+                $is_valid = false;
+            }
+            // nhập lại mật khẩu
+            if (!isset($_POST['re_password']) || $_POST['re_password'] === '') {
+                NotificationHelper::error('re_password', 'không để trống tên mật khẩu');
+                $is_valid = false;
+            } else {
+                // kiểm tra độ dài
+                if ($_POST['password'] != $_POST['re_password']) {
+                    NotificationHelper::error('re_password', 'Trường mật khẩu và nhập lại mật khẩu phải giống nhau');
+                }
+            }
+        }
+
+
+
+
         // email
         if (!isset($_POST['email']) || $_POST['email'] === '') {
             NotificationHelper::error('email', 'Không để trống email');
             $is_valid = false;
         } else {
+            //    kiểm tra đúng dạng email
             $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
             if (!preg_match($emailPattern, $_POST['email'])) {
                 NotificationHelper::error('email', 'Email không đúng định dạng');
-                $is_valid = false;
             }
         }
 
-        //  họ và tên
+        //họ và tên
         if (!isset($_POST['name']) || $_POST['name'] === '') {
-            NotificationHelper::error('name', 'Không để trống họ và tên');
+            NotificationHelper::error('name', 'không để trống họ và tên');
             $is_valid = false;
         }
 
-        //  trạng thái
+        //trạng thái
         if (!isset($_POST['status']) || $_POST['status'] === '') {
-            NotificationHelper::error('status', 'Không để trống trạng thái');
+            NotificationHelper::error('name', 'không để trống trạng thái');
             $is_valid = false;
         }
-        // Kiểm tra trạng thái
+
+
+
         return $is_valid;
     }
 
-    public static function edit()
-    {
-        $is_valid = true;
-        if (!isset($_POST['name']) || $_POST['name'] === '') {
-            NotificationHelper::error('name', 'Vui lòng k để trống tên loại');
-            $is_valid = false;
-        }
-        if (!isset($_POST['status']) || $_POST['status'] === '') {
-            NotificationHelper::error('status', 'Vui lòng k để trống trạng thái');
-            $is_valid = false;
-        }
-        return $is_valid;
-    }
     public static function uploadAvatar()
     {
-        return AuthValidation::uploadAvatar();
+        return Authvalidation::uploadAvatar();
     }
 }
