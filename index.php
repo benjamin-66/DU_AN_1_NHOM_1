@@ -47,7 +47,10 @@ Route::post('/login', 'App\Controllers\Client\AuthController@loginAction');
 Route::get('/logout', 'App\Controllers\Client\AuthController@logout');
 Route::get('/users/{id}', 'App\Controllers\Client\AuthController@edit');
 
-
+// client comment
+Route::post('/comments', 'App\Controllers\Client\CommentController@store');
+Route::put('/products/{id}', 'App\Controllers\Client\CommentController@update');
+Route::delete('/products/{id}', 'App\Controllers\Client\CommentController@delete');
 
 
 // *** Admin
@@ -108,6 +111,7 @@ Route::get('/admin/comments', 'App\Controllers\Admin\CommentController@index');
 Route::get('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@edit');
 Route::put('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@update');
 Route::delete('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@delete');
+
 
 
 Route::dispatch($_SERVER['REQUEST_URI']);

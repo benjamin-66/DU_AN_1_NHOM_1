@@ -4,9 +4,11 @@ namespace App\Controllers\Client;
 
 use App\Helpers\AuthHelper;
 use App\Helpers\NotificationHelper;
+use App\Helpers\ViewProductHelper;
 use App\Models\Category;
 use App\Models\Product;
 use App\Views\Client\Components\Notification;
+use App\Models\Comment;
 use App\Views\Client\Layouts\Footer;
 use App\Views\Client\Layouts\Header;
 use App\Views\Client\Pages\Product\Category as ProductCategory;
@@ -33,6 +35,8 @@ class ProductController
         ];
 
         Header::render();
+        Notification::render();
+        NotificationHelper::unset();
         Index::render($data);
         Footer::render();
     }
@@ -41,15 +45,30 @@ class ProductController
     {
         $product = new Product();
         $product_detail = $product->getOneProductBystatus($id);
+        if (!$product_detail) {
+            NotificationHelper::error('detail', 'Không thể xem sản phẩm này');
+            header('location: /products');
+            exit;
+        }
+
+
+
+        $comment = new Comment();
+        $comments = $comment->get5CommentNewestByProductAndStatus($id);
         $data= [
-            'product'=>$product_detail];
-
-
+            'product'=>$product_detail,
+            'comments' => $comments
+        ];
+        $view_result=ViewProductHelper::cookieView($id, $product_detail['view']);
+        // echo'<pre>';
+        // var_dump($data);
         Header::render();
-      
+        Notification::render();
+        NotificationHelper::unset();
         Detail::render($data);
         Footer::render();
     }
+    
 
     public static function getProductByCategory($id )
 {

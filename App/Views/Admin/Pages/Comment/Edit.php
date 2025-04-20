@@ -61,15 +61,14 @@ class Edit extends BaseView
                                         <input type="text" class="form-control" id="product_name"  name="product_name" value="<?= $data['product_name'] ?>" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="content">Nội Dung*</label>
-                                        
+                                        <label for="content">Nội Dung*</label> 
                                         <textarea class="form-control" id="content"  name="content" rows="3" disabled><?= $data['content'] ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="date">Thời Gian*</label>
                                         <input type="text" class="form-control" id="date"  name="date" value="<?= $data['date'] ?>" disabled>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" action="/admin/comments/<?= $data['id'] ?>" method="post">
                                         <label for="status">Trạng thái*</label>
                                         <select class="select2 form-select shadow-none" style="width: 100%; height:36px;" id="status" name="status" value="<?= $data['status'] ?>" >
                                             <option value="" selected disabled>Vui lòng chọn...</option>
